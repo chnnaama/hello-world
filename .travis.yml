@@ -1,14 +1,32 @@
 language: php
-<<<<<<< HEAD
-=======
-php:
-  - 5.5
-  - 5.6
-  - 7.0
+sudo: false
 
 before_script:
- - composer install --no-interaction
+    - composer install --prefer-source
+    - npm install
 
- script:
- - vendor/bin/phphunit
->>>>>>> origin/master
+script:
+    - phpunit
+    - gulp --production
+
+after_success:
+    - export SYMFONY_ENV=prod && composer install --no-dev -o
+    - mkdir build
+    - mv * build
+    - tar -czf package.tgz build
+env:
+    global:
+        - secure: "prrnALYbywntZiZ1yV8yQuC25FaDjOlxmR8FWc+Wl3oGuQixgjJG1K9hPklSoToSvys5U5xUZ6pFnORdpz40y0H5SoejqoFSHmi+GmegTT6Nkx1bRXn4vGjEXck1KrtS2hia8oCuqtESECwHTkZb94jvEUWCa/tc8zYpzFckKpHnSQXrcJhi7BHi0EYfmpePAI/Exb5uOdvgTvt1GBO9Crktr4xdDqnoHbEi9R7mZ5rujYigAmn5G+v67o61+62/7i0sja1/FpfQXNR6VYFlI/LEE3YjI9FFGhIQoY4h+QAmBJEUZZMklzKvq47OJ+b4EnRLXlsHPclPoNXq8eK0e4TQtSHOSoCz8giRkLmaHr3bj3XzjEqqLdKtxtZH6jnvio2Jb7Bh2kUSfQzyvBDcgifod5OAoJYUAmL6DOoKRCamO8EOC238/51jSx4STdfM/19x14EkInLXN3lH07X8YZrp/rrlejD2GVxCB9mDANs//nQvrzo+vIPrsnMi4b5MxgvTemyeLJuBSuqA3pHntCm9K7SAuaLe6qsMXCnqcn5Wzny9O4KSzg6pEjCaSSvfIihil7D0qqyUB3MUvT5NQH9fbatpX3HeUcIjNrveL0vJr6cp6GP4DWKzvyEJFtSXWjARohrfoxpECCUnELfnYodBGAe+KwW/HJ4dT3J+Zzg="
+        - secure: "5E8FkBK+5DzMIFttzWlTFm6U+ldJf9tJh4NksbJi8T56Gfj0vMCNXfjmvOd8iGfrx10zRiLxlZyZ7sOznKtiqVakDAPJ/NXwrsPKL1jq8X11XUpncvqwQWOWBEh5eYNKhUhbEhJePk5FYEBzMFmh++fpo92EtOdJA4GBonweldHaq29Dpcre8LDn4ln01MqbsbCPn61M+wFSkRxsmFLjD112WCZxnKsmIbs8Rl+pYtR271EdffbGmS01c4Vbz6FYJrHuUtTPkbxCtlRB+vj8MGv5Hx2zMZjXK8rHbXQQJFXPVmeQuLwYbsG7ZOYjD/E2Edn0VIynRvPrKwe2qIGC7JrP6oPvH+bmqvkD0mb1P563RS7WKcClhTSIA3SZqesToRNxV6ddBQSLA8MkmnpIZCnetBOCwrLDmoSwArupNxTNlhe12hCCVAvPpivy997DXEzAl58iZ5V8zGhrA+LqlWXESpWfVGqMbL1rqwva0s//bY+Zfh6+xMxKOk/NK1ap4W7SunUVIdIahULN48rCnCXYLSu2DSs8SkvfQkBp8cRQVVlGNWcEtTWIegSgRhbJy383xw62ViCkc5hZaRvgnFMooZ9tX6SmXFgWJS/FJsBOg48t4iL8giCHJ6dVoKMIgD3zePMWqS58scSLoYBeUlM3pT6WAEk6ooeSmOci4pw="
+        - secure: "uc3ZIOFbV9VNDl8h4f/FI8nPxhZJWANyISNQFvViT5VUjnzEgiBDjPHGhSZjltejIlOeriw9PLW7x3LClPvU5v6jgKH6wEYuok0aaQb++AC62GH7DEK31ZydVhYZGxoOKVzAUXbAOdb1tcPXxHdlp4BZP5Hoxg0lDRPd/OV1xmwFPTYCavOt96qXc63PpT7h8dqHTtL5Wgzl9jkbuBDOFgc4CWcuucwB70HqNW1hcOjun6rJjmXBucqSpokoscBQfLO7jZsDZY0D9xVSSqZvWoOrzhGSvVEsPP1nzk6haYVy6iuIlpWqXRI2Dxk4vSkm8WiNGqtx5BsdfWjxRSQ8SIEoVgoiuxWVPM7jz9h4k7P/1W0U81OhtS65BRCei8QI9kNsaaSkFJjK2aXvXhqNvobE7Bt5HyDMM8/kFhgL+6wakPCbSgOzm7w6vqQlocx5nJ0De8Qg62YuKFgQ0sXaPX4ciTlIaxvyjB6MQjLByBF8/N1ym3QAcIvkkSM9r8ZoqW0CY69zeDhhgFqY1C4kCoF7R0SkoFOJAP2sWUCaXqGEje67H/vD7Ndps0RXrgSWpHlOj1ZW7utj+RsQXTaJS7N9KeSO38Q+SLM+xCftss3C1WfknROfOCGwXbijDjDrZiMYBWY2Bq230JbVQSzYKuxEVqAnKl+uCB1rlJsbcXA="
+        - secure: "vzjXM90Y74lmLGK2cq6USqEJaf59sbMQMvAxXBhdmzgsTYiX5UGjoYf4Gu6SxLQdxsoU3krYTK1CjQX8r2TYLsL8pWDDKSwTT9L8LpCYq/rR+b8/e+q5ew/+zE2i7xF6N9AZ/vLlyOR3PFfzXW+9aV4PwI8IY3/yeQzJicrUPnBEFZeZgedYNPC2KmHvkSvg0k0hK92vndkJ4qNqZgs2WJZxiWpXakJhKs5dPqMwQMhnNEZx0lxjPdJgui4dcHDf8799JwOk+R/nj/WO7f5vXMb+I/q1AdPT4IBjI+edyfFDr9/U8i0+56KXV8Vp9ToeQO4gWTgsat1lA0sLHUVgUdPYcBKo827yAUdjKpWBLUepu1R7mdSDhZwYl9SJn69Zio4hJmIjDJRnAR803Ni68yjhcvL4rhyCCwCeDtGi+xBCPDbKu1lkqex75ZnV4vWbaiPSnuMHaaxBDg/v5oLgPn8QjsDD0GEeYEjSztZG21+qKlrsdZsSKstd8GURUoq2GyaaR30xgeS7St5MgbLUPDqGvtz9yndqXSmdn6j2EpvZ0sIwWyaADbFYbMQDG3IQsihB6eEqwxgQtRxbWQQpznGbxENZvNuaak03hVe7Pheo29H5acfR4aBnpLlYugT0qPQguGuMt0RnayrBFs2EbE4jC7VWBSk8r2e6Gxc/flU="
+addons:
+    apt:
+        packages:
+            - sshpass
+after_success:
+    - mkdir build
+    - mv * build
+    - tar -czf package.tgz build
+    - export SSHPASS=$DEPLOY_PASS
+    - sshpass -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
