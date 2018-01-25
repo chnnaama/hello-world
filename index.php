@@ -2,5 +2,5 @@
 
 echo "Hello World! This is Naama here! :) ";
 
-echo "today is" . date();
+echo "today is" . var_dump(date);
 ?>
